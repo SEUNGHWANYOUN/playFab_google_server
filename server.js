@@ -2,7 +2,7 @@
 const express = require("express");
 const fs = require("fs");
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000; // Render 환경에서는 PORT 자동 설정됨
 
 let latestToken = ""; // Unity에서 polling 할 수 있도록 저장
 
@@ -49,5 +49,6 @@ app.get("/poll-token", (req, res) => {
 
 
 app.listen(port, () => {
-  console.log(`🚀 서버 실행 중: http://localhost:${port}/callback`);
+  console.log(`🚀 서버 실행 중: ${process.env.RENDER_EXTERNAL_URL || "http://localhost:" + port}/callback`);
+
 });
